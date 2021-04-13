@@ -67,3 +67,9 @@ group :development, :test do
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
 end
+
+gem 'devise', '~>4.7'
+
+gem 'kaminari'
+
+gem 'bootstrap', '~> 4.0'
