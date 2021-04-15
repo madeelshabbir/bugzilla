@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_170328) do
+ActiveRecord::Schema.define(version: 2021_04_15_172531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,13 +40,14 @@ ActiveRecord::Schema.define(version: 2021_04_14_170328) do
     t.string "title"
     t.text "description"
     t.date "deadline"
-    t.integer "type"
+    t.integer "_type"
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "project_id"
     t.index ["project_id"], name: "index_bugs_on_project_id"
+    t.index ["title", "project_id"], name: "index_bugs_on_title_and_project_id", unique: true
     t.index ["user_id"], name: "index_bugs_on_user_id"
   end
 
@@ -75,9 +76,7 @@ ActiveRecord::Schema.define(version: 2021_04_14_170328) do
     t.datetime "updated_at", null: false
     t.integer "user_type"
     t.string "name"
-    t.bigint "project_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["project_id"], name: "index_users_on_project_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -86,5 +85,4 @@ ActiveRecord::Schema.define(version: 2021_04_14_170328) do
   add_foreign_key "bugs", "users"
   add_foreign_key "developments", "projects"
   add_foreign_key "developments", "users"
-  add_foreign_key "users", "projects"
 end

@@ -1,4 +1,7 @@
 class ProjectsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :find_project_by_id, only: %i[show edit update destroy]
+
   def index
     @projects = Project.all
   end
@@ -9,6 +12,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
+    @project.users << current_user
     if @project.save
       redirect_to @project
     else
@@ -17,15 +21,15 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find_by(id: params[:id])
+    find_project_by_id
   end
 
   def edit
-    @project = Project.find_by(id: params[:id])
+    find_project_by_id
   end
 
   def update
-    @project = Project.find_by(id: params[:id])
+    find_project_by_id
 
     if @project.update(project_params)
       redirect_to @project
@@ -35,13 +39,16 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find_by(id: params[:id])
     @project.destroy
 
     redirect_to projects_path
   end
 
   private
+
+  def find_project_by_id
+    @project = Project.find_by(id: params[:id])
+  end
 
   def project_params
     params.require(:project).permit(:title)

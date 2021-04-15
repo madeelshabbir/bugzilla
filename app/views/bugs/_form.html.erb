@@ -1,4 +1,4 @@
-<%= form_with model: @bug, local: true do |form| %>
+<%= form_with model: [ @project, @project.bugs.build ], local: true do |f| %>
   <% if !@bug.nil? %>
     <ul>
     <% @bug.errors.full_messages.each do |msg| %>
@@ -8,44 +8,36 @@
   <% end %>
 
   <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
   </div>
 
   <div>
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
   </div>
 
   <div>
-    <%= form.label :deadline %>
-    <%= form.date_field :deadline %>
+    <%= f.label :deadline %>
+    <%= f.date_field :deadline %>
   </div>
 
   <div>
-    <%= form.label :screenshot %>
-    <%= form.file_field :screenshot %>
+    <%= f.label :screenshot %>
+    <%= f.file_field :screenshot %>
   </div>
 
   <div>
-    <%= form.label :type %>
-    <%= form.select(:type) do %>
-      <% Bug.types.each do |c| -%>
-        <%= content_tag(:option, c.first, value: c.last) %>
-      <% end %>
-    <% end %>
+    <%= f.label :type %>
+    <%= f.select :_type, options_for_select(Bug._types.map { |key, value| [key.humanize, key] }), {prompt: "Select Type of Bug..."} %>
   </div>
 
   <div>
-    <%= form.label :status %>
-    <%= form.select(:status) do %>
-      <% Bug.statuses.each do |c| -%>
-        <%= content_tag(:option, c.first == '_new' ? 'new' : c.first, value: c.last) %>
-      <% end %>
-    <% end %>
+    <%= f.label :status %>
+    <%= f.select :status, options_for_select(Bug.statuses.map { |key, value| [key == '_new' ? 'New' : key.humanize, key] }), {prompt: "Select Status of Bug..."} %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= f.submit %>
   </div>
 <% end %>
