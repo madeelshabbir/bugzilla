@@ -3,54 +3,40 @@ class BugsController < ApplicationController
   before_action :find_project_by_id
 
   def index
-    @bug = @project.bugs.all if redirect_to_root(@project)
+    @bugs = @project.bugs.all
   end
 
   def new
-    redirect_to_root(@project)
+    @bug = @project.bugs.build
   end
 
   def create
-    if redirect_to_root(@project)
-      @bug = @project.bugs.build(bug_params)
-      @bug.user = current_user
+    @bug = @project.bugs.build(bug_params)
+    @bug.user = current_user
 
-      if @bug.save
-        redirect_to project_bug_path(@bug.project_id, @bug.id)
-      else
-        render 'new'
-      end
+    if @bug.save
+      redirect_to project_bug_path(@bug.project_id, @bug.id)
+    else
+      render 'new'
     end
   end
 
   def show
-    if redirect_to_root(@project)
-      @bug = @project.bugs.find_by(id: params[:id])
-    end
+    @bug = @project.bugs.find_by(id: params[:id])
   end
 
   def destroy
-    if redirect_to_root(@project)
-      @bug = @project.bugs.find_by(id: params[:id])
-      @bug.destroy
+    @bug = @project.bugs.find_by(id: params[:id])
+    @bug.destroy
 
-      redirect_to 'index'
-    end
+    redirect_to 'index'
   end
 
   private
 
   def find_project_by_id
-    p @project = Project.find_by(id: params[:project_id])
-  end
-
-  def redirect_to_root(project)
-    if project.nil?
-      redirect_to '/'
-      return false
-    end
-
-    true
+    @project = Project.find_by(id: params[:project_id])
+    redirect_to '/' if @project.nil?
   end
 
   def bug_params

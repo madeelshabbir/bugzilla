@@ -3,6 +3,8 @@ Rails.application.routes.draw do
                       controllers: { registrations: 'users/registrations' }
 
   resources :projects do
+    post 'add_member', action: :add_member, controller: 'developments', as: 'add_member'
+    delete 'delete_member/:id', action: :delete_member, controller: 'developments', as: 'delete_member'
     resources :bugs
   end
 end

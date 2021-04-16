@@ -1,0 +1,12 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: 'users/user', collection: locals[:users], as: :user if !locals[:users].nil?  %>
+  </tbody>
+</table>

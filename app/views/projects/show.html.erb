@@ -1,1 +1,24 @@
-<%= @project.title %>
+<div class="row">
+  <div class="col-xs-10">
+    <h2><strong><%= @project.title %></strong></h2>
+    <p><strong>Created by: </strong><%= @creater.name %></p>
+    <span><%= link_to 'Delete', project_path(@project.id), method: :delete, data: { confirm: 'Are you sure?' } if @creater.id == current_user.id %></span>
+  </div>
+  <div class="col-xs-">
+    <%= form_with url: project_add_member_path(@project.id), local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :add_members %>
+        <%= f.select :member, options_for_select(User.where.not(user_type: 1).map { |user| [user.name, user.id] }), {prompt: "Select Developer/QA..."} %>
+      </div>
+
+      <div>
+        <% if @creater.id == current_user.id %>
+          <%= f.submit :Add, class: 'btn btn-primary' %>
+        <% else %>
+          <%= f.submit :Add, class: 'btn btn-primary', disabled: true %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<%= render 'users/index', locals: {users: @project.users } %>

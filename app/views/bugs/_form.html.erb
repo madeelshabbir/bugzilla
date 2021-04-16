@@ -1,11 +1,5 @@
-<%= form_with model: [ @project, @project.bugs.build ], local: true do |f| %>
-  <% if !@bug.nil? %>
-    <ul>
-    <% @bug.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  <% end %>
+<%= form_with model: [ @project, @bug ], local: true do |f| %>
+  <%= render 'errors', locals: {bug: @bug} %>
 
   <div>
     <%= f.label :title %>
