@@ -7,6 +7,7 @@ class BugsController < ApplicationController
   end
 
   def new
+    redirect_to '/' unless current_user.user_type == 'qa'
     @bug = @project.bugs.build
   end
 
@@ -21,12 +22,25 @@ class BugsController < ApplicationController
     end
   end
 
+  def edit
+    find_bug_by_id
+  end
+
+  def update
+    find_bug_by_id
+    if @bug.update(bug_params)
+      redirect_to @bug
+    else
+      render 'edit'
+    end
+  end
+
   def show
-    @bug = @project.bugs.find_by(id: params[:id])
+    find_bug_by_id
   end
 
   def destroy
-    @bug = @project.bugs.find_by(id: params[:id])
+    find_bug_by_id
     @bug.destroy
 
     redirect_to 'index'
@@ -37,6 +51,11 @@ class BugsController < ApplicationController
   def find_project_by_id
     @project = Project.find_by(id: params[:project_id])
     redirect_to '/' if @project.nil?
+  end
+
+  def find_bug_by_id
+    @bug = @project.bugs.find_by(id: params[:id])
+    redirect_to project_bugs_path(@project.id) if @bug.nil?
   end
 
   def bug_params
