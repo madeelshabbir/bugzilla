@@ -1,22 +1,29 @@
-<div class="row">
-  <div class="col-xs-10">
+<div class="d-flex-space-between">
+  <div>
     <h2><strong><%= @bug.title %></strong></h2>
+    <% if @bug.user.user_type == 'qa' %>
+      <p><strong>Reported by: </strong><%= @bug.user.name %></p>
+    <% else %>
+      <p><strong>Assigned to: </strong><%= @bug.user.name %></p>
+    <% end %>
+    <p><strong>Deadline: </strong><%= @bug.deadline %></p>
     <span><%= link_to 'Delete', project_bug_path(@project.id, @bug.id), method: :delete, data: { confirm: 'Are you sure?' } if current_user.user_type == 'qa' %></span>
+    <p><%= @bug.description %></p>
   </div>
 
-  <div class="col-xs-2">
+  <div>
     <%= form_with model: [@project, @bug] do |f| %>
-      <div>
+      <div class="form-group">
         <%= f.label :status %>
         <% if @bug._type == 'feature' %>
-          <%= f.select :status, options_for_select(Bug.statuses.filter{ |key, value| value != 3 && @bug.status != key }.map { |key, value| [key == '_new' ? 'New' : key.humanize, key] }), { include_blank: @bug.status.humanize } %>
+          <%= f.select :status, options_for_select(Bug.statuses.filter{ |key, value| value != 3 && @bug.status != key }.map { |key, value| [key == '_new' ? 'New' : key.humanize, key] }), { include_blank: @bug.status.humanize }, class: 'form-control' %>
         <% else %>
-          <%= f.select :status, options_for_select(Bug.statuses.filter{ |key, value| value != 2 && @bug.status != key }.map { |key, value| [key == '_new' ? 'New' : key.humanize, key] }), { include_blank: @bug.status.humanize } %>
+          <%= f.select :status, options_for_select(Bug.statuses.filter{ |key, value| value != 2 && @bug.status != key }.map { |key, value| [key == '_new' ? 'New' : key.humanize, key] }), { include_blank: @bug.status.humanize }, class: 'form-control' %>
         <% end %>
       </div>
 
-      <div>
-        <% if current_user.user_type == 'developer' %>
+      <div class="form-group">
+        <% if current_user.user_type == 'developer' &&  (@bug.user_id == current_user.id ||  @bug.user.user_type == 'qa') %>
           <%= f.submit 'Change Status', class: 'btn btn-primary' %>
         <% else %>
           <%= f.submit 'Change Status', class: 'btn btn-primary', disabled: true %>
@@ -25,3 +32,4 @@
     <% end %>
   </div>
 </div>
+<img src=<%= url_for(@bug.screenshot) %> class = "media-object" width = "100%">

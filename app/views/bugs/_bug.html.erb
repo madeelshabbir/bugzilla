@@ -1,11 +1,14 @@
-<%= link_to(project_bug_path(bug.project_id, bug.id)) do %>
+<%= link_to project_bug_path(bug.project_id, bug.id) do %>
   <div class="media">
-    <div class="media-left">
-      <img src=<%= url_for(bug.screenshot) %> class="media-object" style="width:200px">
-    </div>
-    <div class="media-body">
-      <h3 class="media-heading"><%= bug.title %></h3>
-      <p><%= bug.description %></p>
+    <div class="media-body container">
+      <div class="d-flex-space-between-vertical-center">
+        <div>
+          <h3 class="media-heading"><%= bug.title %></h3>
+          <p><%= bug.deadline %></p>
+        </div>
+        <p><%= bug.status %></p>
+      </div>
     </div>
   </div>
 <% end %>
+

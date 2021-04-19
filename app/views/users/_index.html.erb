@@ -7,6 +7,6 @@
     </tr>
   </thead>
   <tbody>
-    <%= render partial: 'users/user', collection: locals[:users], as: :user if !locals[:users].nil?  %>
+    <%= render partial: 'users/user', locals: { creater_id: locals[:creater_id] }, collection: locals[:users], as: :user if !locals[:users].nil? %>
   </tbody>
 </table>

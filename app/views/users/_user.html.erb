@@ -2,5 +2,5 @@
   <td><%= user.name %></td>
   <td><%= user.email %></td>
   <td><%= user.user_type.humanize %></td>
-  <td><%= link_to 'Delete', project_delete_member_path(params[:id], user.id), method: :delete, data: { confirm: 'Are you sure?' } if user.user_type != 'manager' && current_user.user_type == 'manager'  %></td>
+  <td><%= link_to 'Delete', project_delete_member_path(params[:id], user.id), method: :delete, data: { confirm: 'Are you sure?' } if user.user_type != 'manager' && current_user.id == creater_id  %></td>
 </tr>
