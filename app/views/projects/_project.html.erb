@@ -7,7 +7,7 @@
       </h4>
     </div>
 
-    <div id="collapse1" class="panel-collapse collapse">
+    <div id="collapse<%= project.id %>" class="panel-collapse collapse">
       <ul class="list-group">
         <% project.bugs.each do |bug| %>
           <li class="list-group-item"><%= link_to bug.title, project_bug_path(bug.project_id, bug.id) %></li>

@@ -1,1 +1,27 @@
-<%= @bug.title if !@bug.nil? %>
+<div class="row">
+  <div class="col-xs-10">
+    <h2><strong><%= @bug.title %></strong></h2>
+    <span><%= link_to 'Delete', project_bug_path(@project.id, @bug.id), method: :delete, data: { confirm: 'Are you sure?' } if current_user.user_type == 'qa' %></span>
+  </div>
+
+  <div class="col-xs-2">
+    <%= form_with model: [@project, @bug] do |f| %>
+      <div>
+        <%= f.label :status %>
+        <% if @bug._type == 'feature' %>
+          <%= f.select :status, options_for_select(Bug.statuses.filter{ |key, value| value != 3 && @bug.status != key }.map { |key, value| [key == '_new' ? 'New' : key.humanize, key] }), { include_blank: @bug.status.humanize } %>
+        <% else %>
+          <%= f.select :status, options_for_select(Bug.statuses.filter{ |key, value| value != 2 && @bug.status != key }.map { |key, value| [key == '_new' ? 'New' : key.humanize, key] }), { include_blank: @bug.status.humanize } %>
+        <% end %>
+      </div>
+
+      <div>
+        <% if current_user.user_type == 'developer' %>
+          <%= f.submit 'Change Status', class: 'btn btn-primary' %>
+        <% else %>
+          <%= f.submit 'Change Status', class: 'btn btn-primary', disabled: true %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

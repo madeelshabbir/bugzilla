@@ -27,11 +27,6 @@
   </div>
 
   <div>
-    <%= f.label :status %>
-    <%= f.select :status, options_for_select(Bug.statuses.map { |key, value| [key == '_new' ? 'New' : key.humanize, key] }), {prompt: "Select Status of Bug..."} %>
-  </div>
-
-  <div>
     <%= f.submit %>
   </div>
 <% end %>
