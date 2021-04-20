@@ -1,13 +1,13 @@
 <div class="d-flex-space-between">
   <div>
     <h2><strong><%= @bug.title %></strong></h2>
-    <% if @bug.user.user_type == 'qa' %>
+    <% if @bug.user.qa? %>
       <p><strong>Reported by: </strong><%= @bug.user.name %></p>
     <% else %>
       <p><strong>Assigned to: </strong><%= @bug.user.name %></p>
     <% end %>
     <p><strong>Deadline: </strong><%= @bug.deadline %></p>
-    <span><%= link_to 'Delete', project_bug_path(@project.id, @bug.id), method: :delete, data: { confirm: 'Are you sure?' } if current_user.user_type == 'qa' %></span>
+    <span><%= link_to 'Delete', project_bug_path(@project.id, @bug.id), method: :delete, data: { confirm: 'Are you sure?' } if current_user.qa? %></span>
     <p><%= @bug.description %></p>
   </div>
 
@@ -23,7 +23,7 @@
       </div>
 
       <div class="form-group">
-        <% if current_user.user_type == 'developer' &&  (@bug.user_id == current_user.id ||  @bug.user.user_type == 'qa') %>
+        <% if current_user.developer? && (@bug.user_id == current_user.id || @bug.user.qa?) %>
           <%= f.submit 'Change Status', class: 'btn btn-primary' %>
         <% else %>
           <%= f.submit 'Change Status', class: 'btn btn-primary', disabled: true %>
@@ -32,4 +32,4 @@
     <% end %>
   </div>
 </div>
-<img src=<%= url_for(@bug.screenshot) %> class = "media-object" width = "100%">
+<img src=<%= url_for(@bug.screenshot) if @bug.screenshot.attached? %> class = "media-object" width = "100%">

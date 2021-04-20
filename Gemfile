@@ -75,3 +75,5 @@ gem 'kaminari'
 gem 'jquery-rails'
 
 gem 'bootstrap-sass'
+
+gem "pundit"

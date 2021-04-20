@@ -9,4 +9,8 @@ class User < ApplicationRecord
   has_many :bugs, dependent: :destroy
   has_many :developments, dependent: :destroy
   has_many :projects, through: :developments
+
+  def set_default_role
+    user_type
+  end
 end

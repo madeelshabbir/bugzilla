@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   before_action :find_project_by_id, only: %i[show edit update destroy]
 
   def index
-    if current_user.user_type == 'developer'
+    if current_user.developer?
       @projects = Project.joins(:developments).where('developments.user_id = ?', current_user.id)
       @projects = @projects.includes(:bugs).all
     else
@@ -12,12 +12,14 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    redirect_to '/' and return unless current_user.user_type == 'manager'
+    authorize Project
 
     @project = Project.new
   end
 
   def create
+    authorize Project
+
     @project = Project.new(project_params)
     @project.users << current_user
 
@@ -30,15 +32,13 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    if @project.developments.find_by(user_id: current_user.id).nil? && current_user.user_type == 'developer'
-      redirect_to '/'
-    else
-      @creater = @project.developments.find_by(is_creater: true).user
-    end
+    authorize @project
+
+    @creater = @project.developments.find_by(is_creater: true).user
   end
 
   def edit
-    redirect_to '/' unless @project.developments.find_by(is_creater: true).user_id == current_user.id
+    authorize @project
   end
 
   def update
@@ -50,6 +50,8 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
+    authorize @project
+
     @project.destroy
     redirect_to projects_path
   end

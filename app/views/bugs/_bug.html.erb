@@ -6,7 +6,7 @@
           <h3 class="media-heading"><%= bug.title %></h3>
           <p><%= bug.deadline %></p>
         </div>
-        <p><%= bug.status %></p>
+        <p><%= bug.status == '_new' ? 'new' : bug.status %></p>
       </div>
     </div>
   </div>

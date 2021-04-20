@@ -9,7 +9,7 @@
     <%= form_with url: project_add_member_path(@project.id) do |f| %>
       <div class="form-group">
         <%= f.label :add_members %>
-        <%= f.select :member, options_for_select(User.where('users.id NOT IN (?)', @project.users.ids).map { |user| [user.name, user.id] }), {prompt: "Select Developer/QA..."}, class: "form-control" %>
+        <%= f.select :member, options_for_select(User.where('user_type <> 1 AND id NOT IN (?)', @project.users.ids).map { |user| [user.name, user.id] }), {prompt: "Select Developer/QA..."}, class: "form-control" %>
       </div>
 
       <div class="form-group">
