@@ -4,26 +4,26 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def show?
-    !(@record.developments.find_by(user_id: @user.id).nil? && @user.developer?)
-  end
-
-  def create?
-    @user.manager?
+    !(@user.developer? && @record.project_users.find_by(user_id: @user.id).nil?)
   end
 
   def new?
-    create?
+    @user.manager?
   end
 
-  def update?
-    @record.developments.find_by(is_creater: true).user_id == @user.id
+  def create?
+    new?
   end
 
   def edit?
-    update?
+    @record.project_users.find_by(is_creater: true).user_id == @user.id
+  end
+
+  def update?
+    edit?
   end
 
   def destroy?
-    @record.developments.find_by(is_creater: true).user_id == @user.id
+    @record.project_users.find_by(is_creater: true).user_id == @user.id
   end
 end

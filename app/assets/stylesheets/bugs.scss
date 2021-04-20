@@ -2,8 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-a{
-  &:hover{
+a {
+  &:hover {
     color: black;
     text-decoration: none !important;
   }
@@ -14,17 +14,17 @@ a{
     color: black;
     background-color: darkgrey;
     margin-top: 20px !important;
-    &:hover{
+    &:hover {
       transform: scale(1.01);
     }
-    .d-flex-space-between-vertical-center{
+    .d-flex-space-between-vertical-center {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
   }
 }
-.d-flex-space{
+.d-flex-space {
   display: flex;
   justify-content: space-between;
 }

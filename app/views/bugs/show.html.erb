@@ -1,4 +1,4 @@
-<div class="d-flex-space-between">
+<div class='d-flex-space-between'>
   <div>
     <h2><strong><%= @bug.title %></strong></h2>
     <% if @bug.user.qa? %>
@@ -13,7 +13,7 @@
 
   <div>
     <%= form_with model: [@project, @bug] do |f| %>
-      <div class="form-group">
+      <div class='form-group'>
         <%= f.label :status %>
         <% if @bug._type == 'feature' %>
           <%= f.select :status, options_for_select(Bug.statuses.filter{ |key, value| value != 3 && @bug.status != key }.map { |key, value| [key == '_new' ? 'New' : key.humanize, key] }), { include_blank: @bug.status.humanize }, class: 'form-control' %>
@@ -22,7 +22,7 @@
         <% end %>
       </div>
 
-      <div class="form-group">
+      <div class='form-group'>
         <% if current_user.developer? && (@bug.user_id == current_user.id || @bug.user.qa?) %>
           <%= f.submit 'Change Status', class: 'btn btn-primary' %>
         <% else %>
@@ -32,4 +32,4 @@
     <% end %>
   </div>
 </div>
-<img src=<%= url_for(@bug.screenshot) if @bug.screenshot.attached? %> class = "media-object" width = "100%">
+<img src=<%= url_for(@bug.screenshot) if @bug.screenshot.attached? %> class = 'media-object' width = '100%'>

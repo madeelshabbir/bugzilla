@@ -1,4 +1,4 @@
-<div class="d-flex-space-between">
+<div class='d-flex-space-between'>
   <div>
     <h2><strong><%= @project.title %></strong> (<%= link_to 'See Bugs', project_bugs_path(@project.id) %>)</h2>
     <p><strong>Created by: </strong><%= @creater.name %></p>
@@ -6,20 +6,20 @@
     <span><%= link_to 'Delete', project_path(@project.id), method: :delete, data: { confirm: 'Are you sure?' } if @creater.id == current_user.id %></span>
   </div>
   <div>
-    <%= form_with url: project_add_member_path(@project.id) do |f| %>
-      <div class="form-group">
-        <%= f.label :add_members %>
-        <%= f.select :member, options_for_select(User.where('user_type <> 1 AND id NOT IN (?)', @project.users.ids).map { |user| [user.name, user.id] }), {prompt: "Select Developer/QA..."}, class: "form-control" %>
+    <%= form_with url: project_add_user_path(@project.id) do |f| %>
+      <div class='form-group'>
+        <%= f.label :add_member %>
+        <%= f.select :member, options_for_select(User.where('user_type <> 1 AND id NOT IN (?)', @project.users.ids).map { |user| [user.name, user.id] }), {prompt: 'Select Developer/QA...'}, class: 'form-control' %>
       </div>
 
-      <div class="form-group">
+      <div class='form-group'>
         <% if @creater.id == current_user.id %>
-          <%= f.submit :Add, class: 'btn btn-primary' %>
+          <%= f.submit :Add, class: 'btn btn-primary', id: 'add-member' %>
         <% else %>
-          <%= f.submit :Add, class: 'btn btn-primary', disabled: true %>
+          <%= f.submit :Add, class: 'btn btn-primary', id: 'add-member', disabled: true %>
         <% end %>
       </div>
     <% end %>
   </div>
 </div>
-<%= render 'users/index', locals: {users: @project.users, creater_id: @creater.id } %>
+<%= render 'project_users/index', locals: {users: @project.users, creater_id: @creater.id } %>

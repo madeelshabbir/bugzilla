@@ -1,18 +1,18 @@
 class BugPolicy < ApplicationPolicy
   def index?
-    !(@record.project.developments.find_by(user_id: @user.id).nil? && @user.developer?)
+    !(@user.developer? && @record.project.project_users.find_by(user_id: @user.id).nil?)
   end
 
   def show?
-    !(@record.project.developments.find_by(user_id: @user.id).nil? && @user.developer?)
-  end
-
-  def create?
-    current_user.qa?
+    index?
   end
 
   def new?
-    create?
+    @user.qa?
+  end
+
+  def create?
+    new?
   end
 
   def update?
@@ -20,6 +20,6 @@ class BugPolicy < ApplicationPolicy
   end
 
   def destroy?
-    current_user.qa?
+    @user.qa?
   end
 end

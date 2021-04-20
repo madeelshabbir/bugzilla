@@ -7,10 +7,6 @@ class User < ApplicationRecord
   enum user_type: { developer: 0, manager: 1, qa: 2 }
 
   has_many :bugs, dependent: :destroy
-  has_many :developments, dependent: :destroy
-  has_many :projects, through: :developments
-
-  def set_default_role
-    user_type
-  end
+  has_many :project_users, dependent: :destroy
+  has_many :projects, through: :project_users
 end

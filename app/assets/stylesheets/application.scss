@@ -13,19 +13,19 @@
  *= require_tree .
  *= require_self
  */
-@import "bootstrap-sprockets";
-@import "bootstrap";
-.navbar{
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+.navbar {
   border-radius: 0;
   .navbar-header {
     display: flex;
     align-items: center;
-    a{
+    a {
       padding: 10px;
-      color:#9d9d9d;
+      color: #9d9d9d;
       font-size: x-large;
       text-decoration: none;
-      &:hover{
+      &:hover {
         color: white;
       }
     }

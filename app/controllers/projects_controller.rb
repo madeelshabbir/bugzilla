@@ -1,11 +1,9 @@
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :find_project_by_id, only: %i[show edit update destroy]
+  before_action :set_project, except: %i[index new create]
 
   def index
     if current_user.developer?
-      @projects = Project.joins(:developments).where('developments.user_id = ?', current_user.id)
-      @projects = @projects.includes(:bugs).all
+      @projects = Project.joins(:project_users).includes(:bugs).where('project_users.user_id = ?', current_user.id)
     else
       @projects = Project.includes(:bugs).all
     end
@@ -24,21 +22,19 @@ class ProjectsController < ApplicationController
     @project.users << current_user
 
     if @project.save
-      Development.find_by(user_id: current_user.id, project_id: @project.id).update(is_creater: true)
+      ProjectUser.find_by(user_id: current_user.id, project_id: @project.id).update(is_creater: true)
       redirect_to @project
     else
-      render 'new'
+      render :new
     end
   end
 
   def show
-    authorize @project
-
-    @creater = @project.developments.find_by(is_creater: true).user
+    @creater = @project.project_users.find_by(is_creater: true).user
   end
 
   def edit
-    authorize @project
+    # Do nothing
   end
 
   def update
@@ -50,16 +46,17 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    authorize @project
-
     @project.destroy
     redirect_to projects_path
   end
 
   private
 
-  def find_project_by_id
+  def set_project
     @project = Project.find_by(id: params[:id])
+    redirect_to root_path if @project.nil?
+
+    authorize @project
   end
 
   def project_params

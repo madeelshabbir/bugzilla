@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   root 'projects#index'
 
   resources :projects do
-    post 'add_member', action: :add_member, controller: 'developments', as: 'add_member'
-    delete 'delete_member/:id', action: :delete_member, controller: 'developments', as: 'delete_member'
+    post 'add_user', action: :add_user, controller: 'project_users', as: 'add_user'
+    delete 'remove_user/:id', action: :remove_user, controller: 'project_users', as: 'remove_user'
     resources :bugs
   end
 end
