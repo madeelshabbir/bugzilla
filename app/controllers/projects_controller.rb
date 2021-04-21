@@ -3,9 +3,9 @@ class ProjectsController < ApplicationController
 
   def index
     if current_user.developer?
-      @projects = Project.joins(:project_users).includes(:bugs).where('project_users.user_id = ?', current_user.id)
+      @projects = Project.joins(:project_users).includes(:bugs).where('project_users.user_id = ?', current_user.id).last(10)
     else
-      @projects = Project.includes(:bugs).all
+      @projects = Project.includes(:bugs).last(10)
     end
   end
 
@@ -20,9 +20,9 @@ class ProjectsController < ApplicationController
 
     @project = Project.new(project_params)
     @project.users << current_user
+    @project.creator = current_user
 
     if @project.save
-      ProjectUser.find_by(user_id: current_user.id, project_id: @project.id).update(is_creater: true)
       redirect_to @project
     else
       render :new
@@ -30,7 +30,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @creater = @project.project_users.find_by(is_creater: true).user
+    # Do nothing
   end
 
   def edit

@@ -16,7 +16,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def edit?
-    @record.project_users.find_by(is_creater: true).user_id == @user.id
+    @record.creator_id == @user.id
   end
 
   def update?
@@ -24,6 +24,6 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @record.project_users.find_by(is_creater: true).user_id == @user.id
+    @record.creator_id == @user.id
   end
 end

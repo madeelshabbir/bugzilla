@@ -4,9 +4,7 @@ class BugsController < ApplicationController
 
   def index
     @bugs = @project.bugs.all
-    redirect_to root_path and return unless @bugs.exists?
-
-    authorize @bugs.first
+    authorize @bugs.first if @bugs.exists?
   end
 
   def new
@@ -18,6 +16,7 @@ class BugsController < ApplicationController
   def create
     @bug = @project.bugs.build(bug_params)
     @bug.user = current_user
+    @bug.creator = current_user
 
     authorize @bug
 

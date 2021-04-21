@@ -1,6 +1,7 @@
 class Bug < ApplicationRecord
   belongs_to :project
   belongs_to :user
+  belongs_to :creator, class_name: 'User'
 
   validates :title, uniqueness: { scope: :project_id }
 

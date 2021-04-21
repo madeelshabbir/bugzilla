@@ -1,11 +1,8 @@
 <div class='d-flex-space-between'>
   <div>
     <h2><strong><%= @bug.title %></strong></h2>
-    <% if @bug.user.qa? %>
-      <p><strong>Reported by: </strong><%= @bug.user.name %></p>
-    <% else %>
-      <p><strong>Assigned to: </strong><%= @bug.user.name %></p>
-    <% end %>
+    <p><strong>Reported by: </strong><%= @bug.creator.name %></p>
+    <p><strong>Assigned to: </strong><%= @bug.user.qa? ? 'None' : @bug.user.name %></p>
     <p><strong>Deadline: </strong><%= @bug.deadline %></p>
     <span><%= link_to 'Delete', project_bug_path(@project.id, @bug.id), method: :delete, data: { confirm: 'Are you sure?' } if current_user.qa? %></span>
     <p><%= @bug.description %></p>
