@@ -76,4 +76,4 @@ gem 'jquery-rails'
 
 gem 'bootstrap-sass'
 
-gem "pundit"
+gem 'pundit'
