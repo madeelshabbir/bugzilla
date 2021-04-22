@@ -1,6 +1,6 @@
-<div>
-  <%= link_to new_project_bug_path(@project.id) do %>
-    <button class = 'btn btn-primary' <%= 'disabled' unless current_user.qa? %> >Report Bug</button>
-  <% end %>
-  <%= render partial: 'bug', collection: @bugs, as: :bug if !@bugs.empty? %>
-</div>
+<%= render 'report_bug', local: {id: @project.id} %>
+<h2>Bugs (<%= @bugs.total_count %>)</h2>
+<%= paginate @bugs %>
+<div class='line'></div>
+<%= paginate @bugs %>
+<%= render partial: 'bug', collection: @bugs, as: :bug if !@bugs.empty? %>

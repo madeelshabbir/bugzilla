@@ -16,7 +16,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def edit?
-    @record.creator_id == @user.id
+    @record.user_id == @user.id
   end
 
   def update?
@@ -28,10 +28,10 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def creator?
-    @record.creator_id == @user.id
+    @record.user_id == @user.id
   end
 
-  def remove_user_access?(row_user)
+  def remove_user?(row_user)
     !row_user.manager? && creator?
   end
 end

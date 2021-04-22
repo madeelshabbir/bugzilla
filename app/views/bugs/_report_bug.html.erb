@@ -1,0 +1,3 @@
+<% content_for :report_bug do %>
+  <%= link_to 'Report Bug', new_project_bug_path(local[:id]), class: 'nav-link' if current_user.qa? %>
+<% end %>

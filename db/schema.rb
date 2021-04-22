@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_21_170022) do
+ActiveRecord::Schema.define(version: 2021_04_22_140346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,15 +48,17 @@ ActiveRecord::Schema.define(version: 2021_04_21_170022) do
     t.bigint "project_id"
     t.bigint "assignee_id"
     t.index ["project_id"], name: "index_bugs_on_project_id"
+    t.index ["title", "project_id"], name: "index_bugs_on_title_and_project_id", unique: true
     t.index ["user_id"], name: "index_bugs_on_user_id"
   end
 
   create_table "project_users", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "project_id"
-    t.bigint "user_id"
     t.index ["project_id"], name: "index_project_users_on_project_id"
+    t.index ["user_id", "project_id"], name: "index_project_users_on_user_id_and_project_id", unique: true
     t.index ["user_id"], name: "index_project_users_on_user_id"
   end
 
@@ -64,7 +66,8 @@ ActiveRecord::Schema.define(version: 2021_04_21_170022) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "creator_id"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -75,8 +78,8 @@ ActiveRecord::Schema.define(version: 2021_04_21_170022) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_type"
     t.string "name"
+    t.integer "user_type"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -87,5 +90,5 @@ ActiveRecord::Schema.define(version: 2021_04_21_170022) do
   add_foreign_key "bugs", "users", column: "assignee_id"
   add_foreign_key "project_users", "projects"
   add_foreign_key "project_users", "users"
-  add_foreign_key "projects", "users", column: "creator_id"
+  add_foreign_key "projects", "users"
 end

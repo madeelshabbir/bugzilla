@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :projects, through: :project_users
   has_many :assigned_bugs, class_name: :Bug
 
-  has_one :project, dependent: :destroy
+  has_many :own_projects, class_name: :Project, dependent: :destroy
 
   scope :available, ->(ids) { where('user_type <> 1 AND id NOT IN (?)', ids) }
 end

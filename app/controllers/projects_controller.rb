@@ -3,9 +3,13 @@ class ProjectsController < ApplicationController
 
   def index
     if current_user.developer?
-      @projects = Project.joins(:project_users).includes(:bugs).where('project_users.user_id = ?', current_user.id).last(10)
+      @projects = Project
+                  .joins(:project_users)
+                  .where('project_users.user_id = ?', current_user.id)
+                  .page(params[:page])
+                  .per(5)
     else
-      @projects = Project.includes(:bugs).last(10)
+      @projects = Project.page(params[:page]).per(5)
     end
   end
 
@@ -31,6 +35,8 @@ class ProjectsController < ApplicationController
 
   def show
     authorize @project
+
+    @users = @project.users.page(params[:page]).per(3)
   end
 
   def edit

@@ -20,10 +20,12 @@
   .navbar-header {
     display: flex;
     align-items: center;
+    .navbar-toggle{
+      margin-right: 10px;
+      margin-left: auto;
+    }
     a {
-      padding: 10px;
       color: #9d9d9d;
-      font-size: x-large;
       text-decoration: none;
       &:hover {
         color: white;
@@ -32,7 +34,55 @@
   }
 }
 
-d-flex-space-between {
+.d-flex-space-between {
   display: flex;
   justify-content: space-between;
+}
+
+.btn {
+  background-color: black;
+  color: white;
+}
+
+.error-message {
+  color: red;
+  margin: 10px 0;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+.line {
+  background-color: rgba(1, 1, 1, 0.2);
+  height: 1px;
+  margin: 5px 0 10px 0;
+}
+
+.mr-1 {
+  margin-right: 5px;
+}
+
+.mb-2 {
+  margin-bottom: 10px;
+}
+
+.mt-3 {
+  margin-top: 20px;
+}
+
+.pagination {
+  display: block;
+  text-align: center;
+  a {
+    margin: auto 10px;
+  }
+}
+
+form {
+  width: 50%;
+}
+
+.rem-form {
+  width: 100%;
 }
