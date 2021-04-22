@@ -16,7 +16,7 @@ class BugsController < ApplicationController
   def create
     @bug = @project.bugs.build(bug_params)
     @bug.user = current_user
-    @bug.creator = current_user
+    @bug.assignee = User.new
 
     authorize @bug
 
@@ -28,6 +28,8 @@ class BugsController < ApplicationController
   end
 
   def update
+    authorize @bug
+
     if params[:bug][:status].nil? || @bug.update(status: params[:bug][:status], user_id: current_user.id)
       redirect_to project_bug_path(@bug.project_id, @bug.id)
     else
@@ -36,10 +38,12 @@ class BugsController < ApplicationController
   end
 
   def show
-    # Do nothing
+    authorize @bug
   end
 
   def destroy
+    authorize @bug
+
     @bug.destroy
     redirect_to project_bugs_path(@project.id)
   end
@@ -54,8 +58,6 @@ class BugsController < ApplicationController
   def set_bug
     @bug = @project.bugs.find_by(id: params[:id])
     redirect_to project_bugs_path(@project.id) if @bug.nil?
-
-    authorize @bug
   end
 
   def bug_params

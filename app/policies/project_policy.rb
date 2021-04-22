@@ -24,6 +24,14 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def destroy?
+    edit?
+  end
+
+  def creator?
     @record.creator_id == @user.id
+  end
+
+  def remove_user_access?(row_user)
+    !row_user.manager? && creator?
   end
 end

@@ -1,7 +1,7 @@
 class Bug < ApplicationRecord
   belongs_to :project
   belongs_to :user
-  belongs_to :creator, class_name: 'User'
+  belongs_to :assignee, class_name: 'User'
 
   enum _type: { feature: 0, bug: 1 }
   enum status: { _new: 0, started: 1, completed: 2, resolved: 3 }

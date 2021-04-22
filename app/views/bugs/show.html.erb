@@ -1,14 +1,15 @@
 <div class='d-flex-space-between'>
   <div>
     <h2><strong><%= @bug.title %></strong></h2>
-    <p><strong>Reported by: </strong><%= @bug.creator.name %></p>
-    <p><strong>Assigned to: </strong><%= @bug.user.qa? ? 'None' : @bug.user.name %></p>
+    <p><strong>Reported by: </strong><%= @bug.user.name %></p>
+    <p><strong>Assigned to: </strong><%= @bug.assignee.nil? ? 'None' : @bug.assignee %></p>
+    <p><strong>Status: </strong><%= @bug.status == '_new' ? 'New' : @bug.status.humanize %></p>
     <p><strong>Deadline: </strong><%= @bug.deadline %></p>
     <span><%= link_to 'Delete', project_bug_path(@project.id, @bug.id), method: :delete, data: { confirm: 'Are you sure?' } if current_user.qa? %></span>
     <p><%= @bug.description %></p>
   </div>
 
-  <div>
+  <% if policy(@bug).add_user_access? %>
     <%= form_with model: [@project, @bug] do |f| %>
       <div class='form-group'>
         <%= f.label :status %>
@@ -20,13 +21,9 @@
       </div>
 
       <div class='form-group'>
-        <% if current_user.developer? && (@bug.user_id == current_user.id || @bug.user.qa?) %>
-          <%= f.submit 'Change Status', class: 'btn btn-primary' %>
-        <% else %>
-          <%= f.submit 'Change Status', class: 'btn btn-primary', disabled: true %>
-        <% end %>
+        <%= f.submit 'Change Status', class: 'btn btn-primary' %>
       </div>
     <% end %>
-  </div>
+  <% end %>
 </div>
 <img src=<%= url_for(@bug.screenshot) if @bug.screenshot.attached? %> class = 'media-object' width = '100%'>

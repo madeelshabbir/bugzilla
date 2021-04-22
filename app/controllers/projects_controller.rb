@@ -30,22 +30,26 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    # Do nothing
+    authorize @project
   end
 
   def edit
-    # Do nothing
+    authorize @project
   end
 
   def update
+    authorize @project
+
     if @project.update(project_params)
       redirect_to @project
     else
-      render 'edit'
+      render :edit
     end
   end
 
   def destroy
+    authorize @project
+
     @project.destroy
     redirect_to projects_path
   end
@@ -55,8 +59,6 @@ class ProjectsController < ApplicationController
   def set_project
     @project = Project.find_by(id: params[:id])
     redirect_to root_path if @project.nil?
-
-    authorize @project
   end
 
   def project_params

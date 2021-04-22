@@ -9,6 +9,7 @@ class ProjectUsersController < ApplicationController
 
   def remove_user
     @project_user = ProjectUser.find_by(user_id: params[:id], project_id: params[:project_id])
+    render 'projects/show' if @project_user.nil?
     redirect_to project_path(params[:project_id]) if @project_user.destroy
   end
 end

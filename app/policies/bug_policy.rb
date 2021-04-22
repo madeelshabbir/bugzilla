@@ -20,6 +20,10 @@ class BugPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.qa?
+    new?
+  end
+
+  def add_user_access?
+    @user.developer? && (@record.assignee_id == @user.id || @record.assignee.nil?)
   end
 end
