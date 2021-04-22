@@ -1,0 +1,26 @@
+// Place all the styles related to the Bugs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+a {
+  &:hover {
+    color: black;
+    text-decoration: none !important;
+  }
+  .media {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    color: black;
+    background-color: darkgrey;
+    margin-top: 20px !important;
+    &:hover {
+      transform: scale(1.01);
+    }
+    .d-flex-space-between-vertical-center {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}

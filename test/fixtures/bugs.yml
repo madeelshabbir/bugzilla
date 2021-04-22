@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  deadline: 2021-04-14
+  screenshot: MyString
+  type: 1
+  status: 1
+
+two:
+  title: MyString
+  description: MyText
+  deadline: 2021-04-14
+  screenshot: MyString
+  type: 1
+  status: 1

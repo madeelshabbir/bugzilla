@@ -1,0 +1,3 @@
+<h2><strong>Projects</strong></h2>
+<span><%= link_to 'Create Project', new_project_path if current_user.manager? %></span>
+<%= render partial: 'project', collection: @projects, as: :project if !@projects.nil? %>

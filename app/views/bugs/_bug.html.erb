@@ -1,0 +1,14 @@
+<%= link_to project_bug_path(bug.project_id, bug.id) do %>
+  <div class='media'>
+    <div class='media-body container'>
+      <div class='d-flex-space-between-vertical-center'>
+        <div>
+          <h3 class='media-heading'><%= bug.title %></h3>
+          <p><%= bug.deadline %></p>
+        </div>
+        <p><%= bug.status == '_new' ? 'new' : bug.status %></p>
+      </div>
+    </div>
+  </div>
+<% end %>
+
