@@ -23,7 +23,7 @@ class BugPolicy < ApplicationPolicy
     new?
   end
 
-  def add_user_access?
+  def add_user?
     @user.developer? && (@record.assignee_id == @user.id || @record.assignee.nil?)
   end
 end

@@ -8,11 +8,9 @@ a {
     text-decoration: none !important;
   }
   .media {
-    border: 1px solid black;
-    border-radius: 10px;
     padding: 10px;
     color: black;
-    background-color: darkgrey;
+    background-color: rgba(1, 1, 1, 0.1);
     margin-top: 20px !important;
     &:hover {
       transform: scale(1.01);

@@ -1,18 +1,22 @@
+<%= render 'report_bug', local: {id: @project.id} %>
+
 <div class='d-flex-space-between'>
   <div>
-    <h2><strong><%= @bug.title %></strong></h2>
+    <h2><%= @bug.title %></h2>
+    <p><%= link_to 'Delete', project_bug_path(@project.id, @bug.id), method: :delete, data: { confirm: 'Are you sure?' } if current_user.qa? %></p>
     <p><strong>Reported by: </strong><%= @bug.user.name %></p>
-    <p><strong>Assigned to: </strong><%= @bug.assignee.nil? ? 'None' : @bug.assignee %></p>
+    <p><strong>Assigned to: </strong><%= @bug.assignee.nil? ? 'None' : @bug.assignee.name %></p>
     <p><strong>Status: </strong><%= @bug.status == '_new' ? 'New' : @bug.status.humanize %></p>
     <p><strong>Deadline: </strong><%= @bug.deadline %></p>
-    <span><%= link_to 'Delete', project_bug_path(@project.id, @bug.id), method: :delete, data: { confirm: 'Are you sure?' } if current_user.qa? %></span>
     <p><%= @bug.description %></p>
   </div>
-
-  <% if policy(@bug).add_user_access? %>
+  <img src=<%= url_for(@bug.screenshot) if @bug.screenshot.attached? %> class = 'media-object img-thumbnail' width='50%' />
+</div>
+<div class="mt-3">
+  <% if policy(@bug).add_user? %>
     <%= form_with model: [@project, @bug] do |f| %>
       <div class='form-group'>
-        <%= f.label :status %>
+        <%= f.label :edit_status %>
         <% if @bug._type == 'feature' %>
           <%= f.select :status, options_for_select(Bug.statuses.filter{ |key, value| value != 3 && @bug.status != key }.map { |key, value| [key == '_new' ? 'New' : key.humanize, key] }), { include_blank: @bug.status.humanize }, class: 'form-control' %>
         <% else %>
@@ -21,9 +25,8 @@
       </div>
 
       <div class='form-group'>
-        <%= f.submit 'Change Status', class: 'btn btn-primary' %>
+        <%= f.submit 'Change Status', class: 'btn' %>
       </div>
     <% end %>
   <% end %>
 </div>
-<img src=<%= url_for(@bug.screenshot) if @bug.screenshot.attached? %> class = 'media-object' width = '100%'>

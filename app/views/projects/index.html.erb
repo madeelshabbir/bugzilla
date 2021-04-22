@@ -1,3 +1,5 @@
-<h2><strong>Projects</strong></h2>
-<span><%= link_to 'Create Project', new_project_path if current_user.manager? %></span>
+<h2>Projects (<%= @projects.total_count %>)</h2>
+<%= paginate @projects %>
+<div class='line'></div>
+<%= render 'create_project' %>
 <%= render partial: 'project', collection: @projects, as: :project if !@projects.nil? %>

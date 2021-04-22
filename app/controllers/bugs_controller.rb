@@ -3,8 +3,8 @@ class BugsController < ApplicationController
   before_action :set_bug, only: %i[update show destroy]
 
   def index
-    @bugs = @project.bugs.all
-    authorize @bugs.first if @bugs.exists?
+    @bugs = @project.bugs.page(params[:page]).per(3)
+    authorize @bugs if @bugs.exists?
   end
 
   def new
@@ -30,7 +30,7 @@ class BugsController < ApplicationController
   def update
     authorize @bug
 
-    if params[:bug][:status].nil? || @bug.update(status: params[:bug][:status], user_id: current_user.id)
+    if params[:bug][:status].nil? || @bug.update(status: params[:bug][:status], assignee_id: current_user.id)
       redirect_to project_bug_path(@bug.project_id, @bug.id)
     else
       render :show

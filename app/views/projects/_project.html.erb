@@ -9,9 +9,7 @@
 
     <div id='collapse<%= project.id %>' class='panel-collapse collapse'>
       <ul class='list-group'>
-        <% project.bugs.each do |bug| %>
-          <li class='list-group-item'><%= link_to bug.title, project_bug_path(bug.project_id, bug.id) %></li>
-        <% end %>
+        <li class='list-group-item'><%= link_to 'See all bugs', project_bugs_path(project.id), class: 'see-all-bugs' %></li>
       </ul>
     </div>
   </div>
