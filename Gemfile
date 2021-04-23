@@ -77,3 +77,6 @@ gem 'jquery-rails'
 gem 'bootstrap-sass'
 
 gem 'pundit'
+
+gem 'cloudinary'
+gem 'activestorage-cloudinary-service'
