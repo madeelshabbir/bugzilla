@@ -10,15 +10,5 @@ class Bug < ApplicationRecord
 
   validates :title, :deadline, :bug_type, :status, presence: { message: ' is missing' }
   validates :title, uniqueness: { scope: :project_id }
-
-  validate :check_png_or_gif
-
-  private
-
-  def check_png_or_gif
-    return unless screenshot.attached? && !screenshot.content_type.in?(%w[image/png image/gif])
-
-    screenshot.purge
-    errors.add(:screenshot, 'Screenshout must be .png or .gif')
-  end
+  validates :screenshot, content_type: {in: %w[image/png image/gif], message: ' must be .png or .gif'}
 end
