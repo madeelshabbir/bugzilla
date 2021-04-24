@@ -23,7 +23,7 @@
 
   <div class='form-group'>
     <%= f.label :type %>
-    <%= f.select :_type, options_for_select(Bug._types.map { |key, value| [key.humanize, key] }), {prompt: 'Select Type of Bug...'}, class: 'form-control' %>
+    <%= f.select :bug_type, options_for_select(Bug.bug_types.map { |key, value| [key.humanize, key] }), {prompt: 'Select Type of Bug...'}, class: 'form-control' %>
   </div>
 
   <div>

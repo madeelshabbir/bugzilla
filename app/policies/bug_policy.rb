@@ -16,7 +16,7 @@ class BugPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.developer? && (@record.user_id == @user.id || @record.user.qa?)
+    @user.developer? && (@record.assignee_id == @user.id || @record.creator.qa?)
   end
 
   def destroy?
