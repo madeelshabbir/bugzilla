@@ -15,7 +15,7 @@ class BugsController < ApplicationController
 
   def create
     @bug = @project.bugs.build(bug_params)
-    @bug.user = current_user
+    @bug.creator = current_user
     @bug.assignee = User.new
 
     authorize @bug
@@ -61,6 +61,6 @@ class BugsController < ApplicationController
   end
 
   def bug_params
-    params.require(:bug).permit(:title, :description, :deadline, :screenshot, :_type)
+    params.require(:bug).permit(:title, :description, :deadline, :screenshot, :bug_type)
   end
 end

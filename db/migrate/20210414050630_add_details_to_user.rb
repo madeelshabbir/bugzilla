@@ -1,6 +1,8 @@
 class AddDetailsToUser < ActiveRecord::Migration[5.2]
   def change
-    add_column :users, :name, :string
-    add_column :users, :user_type, :integer
+    change_table :users, bulk: true do |t|
+      t.string :name, null: false
+      t.integer :user_type, null: false
+    end
   end
 end
