@@ -80,3 +80,7 @@ gem 'pundit'
 
 gem 'cloudinary'
 gem 'activestorage-cloudinary-service'
+
+gem 'figaro'
+
+gem 'active_storage_validations'
