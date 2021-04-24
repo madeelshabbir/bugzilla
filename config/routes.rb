@@ -9,4 +9,6 @@ Rails.application.routes.draw do
     delete 'remove_user/:id', action: :remove_user, controller: 'project_users', as: 'remove_user'
     resources :bugs
   end
+
+  get '*path' => redirect('/')
 end
