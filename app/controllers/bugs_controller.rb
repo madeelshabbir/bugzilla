@@ -2,9 +2,13 @@ class BugsController < ApplicationController
   before_action :set_project
   before_action :set_bug, only: %i[update show destroy]
 
+  rescue_from Pundit::NotAuthorizedError, Pundit::NotDefinedError, NoMethodError do |exception|
+    redirect_to @project.nil? ? root_path : project_bugs_path(@project.id), alert: exception.message
+  end
+
   def index
     @bugs = @project.bugs.page(params[:page]).per(3)
-    authorize @bugs if @bugs.exists?
+    authorize @bugs.first
   end
 
   def new
@@ -52,12 +56,10 @@ class BugsController < ApplicationController
 
   def set_project
     @project = Project.find_by(id: params[:project_id])
-    redirect_to root_path if @project.nil?
   end
 
   def set_bug
     @bug = @project.bugs.find_by(id: params[:id])
-    redirect_to project_bugs_path(@project.id) if @bug.nil?
   end
 
   def bug_params

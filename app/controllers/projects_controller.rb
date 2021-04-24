@@ -64,7 +64,6 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = Project.find_by(id: params[:id])
-    redirect_to root_path if @project.nil?
   end
 
   def project_params

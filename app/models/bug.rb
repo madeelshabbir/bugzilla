@@ -10,5 +10,5 @@ class Bug < ApplicationRecord
 
   validates :title, :deadline, :bug_type, :status, presence: { message: ' is missing' }
   validates :title, uniqueness: { scope: :project_id }
-  validates :screenshot, content_type: {in: %w[image/png image/gif], message: ' must be .png or .gif'}
+  validates :screenshot, content_type: { in: %w[image/png image/gif], message: ' must be .png or .gif' }
 end
