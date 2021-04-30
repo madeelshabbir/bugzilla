@@ -13,10 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+
 .navbar {
   border-radius: 0;
+
   .navbar-header {
     display: flex;
     align-items: center;
@@ -24,12 +27,14 @@
       margin-right: 10px;
       margin-left: auto;
     }
-    a {
-      color: #9d9d9d;
-      text-decoration: none;
-      &:hover {
-        color: white;
-      }
+  }
+
+  a {
+    color: white !important;
+    text-decoration: none;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.7) !important;
     }
   }
 }
@@ -42,6 +47,9 @@
 .btn {
   background-color: black;
   color: white;
+  &:hover {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
 }
 
 .error-message {
@@ -67,6 +75,10 @@ h2 {
   margin-bottom: 10px;
 }
 
+.mb-4 {
+  margin-bottom: 40px;
+}
+
 .mt-3 {
   margin-top: 20px;
 }
@@ -86,3 +98,10 @@ form {
 .rem-form {
   width: 100%;
 }
+
+.d-flex-space-between-vertical-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+

@@ -79,6 +79,7 @@ gem 'bootstrap-sass'
 gem 'pundit'
 
 gem 'cloudinary'
+
 gem 'activestorage-cloudinary-service'
 
 gem 'figaro'

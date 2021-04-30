@@ -1,0 +1,10 @@
+<div class='d-flex-space-between-vertical-center form-group user_check_box'>
+  <div>
+    <p class='cb_user_user'><%= user.name %></p>
+    <p class='cb_user_email'>(<%= user.email %>)</p>
+  </div>
+
+  <%= form.check_box :ids, {multiple: true}, user.id, nil %>
+</div>
+
+<div class='line' />

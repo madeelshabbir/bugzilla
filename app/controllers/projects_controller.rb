@@ -2,29 +2,17 @@ class ProjectsController < ApplicationController
   before_action :set_project, except: %i[index new create]
 
   def index
-    if current_user.developer?
-      @projects = Project
-                  .joins(:project_users)
-                  .where('project_users.user_id = ?', current_user.id)
-                  .page(params[:page])
-                  .per(5)
-    else
-      @projects = Project.page(params[:page]).per(5)
-    end
+    @projects = policy_scope(Project).page(params[:page]).per(10)
+
+    @projects.each { |project| authorize project }
   end
 
   def new
-    authorize Project
-
-    @project = Project.new
+    @project = authorize Project.new
   end
 
   def create
-    authorize Project
-
-    @project = Project.new(project_params)
-    @project.users << current_user
-    @project.creator = current_user
+    @project = authorize current_user.created_projects.new(project_params)
 
     if @project.save
       redirect_to @project
@@ -34,18 +22,16 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    authorize @project
+    @users = @project.users.page(params[:page]).per(10)
 
-    @users = @project.users.page(params[:page]).per(3)
+    @available_users = User.available(@project.id)
   end
 
   def edit
-    authorize @project
+    # Do nothing
   end
 
   def update
-    authorize @project
-
     if @project.update(project_params)
       redirect_to @project
     else
@@ -54,16 +40,17 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    authorize @project
-
-    @project.destroy
-    redirect_to projects_path
+    if @project.destroy
+      redirect_to projects_path
+    else
+      render :index
+    end
   end
 
   private
 
   def set_project
-    @project = Project.find_by(id: params[:id])
+    @project = authorize Project.find_by(id: params[:id])
   end
 
   def project_params

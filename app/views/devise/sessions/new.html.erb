@@ -1,15 +1,7 @@
 <h2>Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <% flash.each do |name, msg| %>
-    <% if msg.class == Array %>
-      <% msg.each do |message| %>
-        <%= content_tag :div, message, id: "flash_#{name}", class: 'error-message' %>
-      <% end %>
-    <% else %>
-      <%= content_tag :div, msg, id: "flash_#{name}", class: 'error-message' %>
-    <% end %>
-  <% end %>
+  <%= render 'shared/flash_errors' %>
 
   <div class='field form-group'>
     <%= f.label :email %>

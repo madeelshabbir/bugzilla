@@ -2,27 +2,20 @@ class BugsController < ApplicationController
   before_action :set_project
   before_action :set_bug, only: %i[update show destroy]
 
-  rescue_from Pundit::NotAuthorizedError, Pundit::NotDefinedError, NoMethodError do |exception|
-    redirect_to @project.nil? ? root_path : project_bugs_path(@project.id), alert: exception.message
-  end
-
   def index
-    @bugs = @project.bugs.page(params[:page]).per(3)
-    authorize @bugs.first
+    @bugs = @project.bugs.page(params[:page]).per(10)
+
+    @bugs.each { |bug| authorize bug }
+
+    @own_bugs = policy_scope(@bugs).page(params[:page]).per(5)
   end
 
   def new
-    @bug = @project.bugs.build
-
-    authorize @bug
+    @bug = authorize @project.bugs.build
   end
 
   def create
-    @bug = @project.bugs.build(bug_params)
-    @bug.creator = current_user
-    @bug.assignee = User.new
-
-    authorize @bug
+    @bug = authorize @project.bugs.build(bug_params)
 
     if @bug.save
       redirect_to project_bug_path(@bug.project_id, @bug.id)
@@ -32,9 +25,7 @@ class BugsController < ApplicationController
   end
 
   def update
-    authorize @bug
-
-    if params[:bug][:status].nil? || @bug.update(status: params[:bug][:status], assignee_id: current_user.id)
+    if @bug.update(status: params[:bug][:status], assignee_id: current_user.id)
       redirect_to project_bug_path(@bug.project_id, @bug.id)
     else
       render :show
@@ -42,14 +33,15 @@ class BugsController < ApplicationController
   end
 
   def show
-    authorize @bug
+    # Do Nothing
   end
 
   def destroy
-    authorize @bug
-
-    @bug.destroy
-    redirect_to project_bugs_path(@project.id)
+    if @bug.destroy
+      redirect_to project_bugs_path(@project.id)
+    else
+      render :index
+    end
   end
 
   private
@@ -59,7 +51,7 @@ class BugsController < ApplicationController
   end
 
   def set_bug
-    @bug = @project.bugs.find_by(id: params[:id])
+    @bug = authorize @project.bugs.find_by(id: params[:id])
   end
 
   def bug_params

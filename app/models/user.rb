@@ -6,6 +6,12 @@ class User < ApplicationRecord
 
   enum user_type: { developer: 0, manager: 1, qa: 2 }
 
+  USER_TYPE_MAP = {
+    Developer: :developer,
+    Manager: :manager,
+    QA: :qa
+  }.freeze
+
   has_many :bugs, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
   has_many :project_users, dependent: :destroy
   has_many :projects, through: :project_users
@@ -13,5 +19,6 @@ class User < ApplicationRecord
 
   has_many :created_projects, class_name: :Project, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
 
-  scope :available, ->(ids) { where('user_type <> 1 AND id NOT IN (?)', ids) }
+  scope :unavailable, ->(project_id) { joins(:project_users).where('project_users.project_id = ?', project_id) }
+  scope :available, ->(project_id) { where.not(user_type: 1, id: unavailable(project_id)) }
 end
