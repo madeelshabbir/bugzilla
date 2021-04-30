@@ -1,7 +1,7 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render 'devise/shared/error_messages', resource: resource %>
+  <%= render 'shared/error_messages', resource: resource %>
 
   <div class='field form-group'>
     <%= f.label :name %>
@@ -37,7 +37,7 @@
 
   <div class='field form-group'>
     <%= f.label :user_type %>
-    <%= f.select :user_type, options_for_select(User.user_types.map { |key, value| [key.humanize, key] }), {prompt: 'Select Type of User...'}, class: 'form-control' %>
+    <%= f.select :user_type, options_for_select(User::USER_TYPE_MAP), {prompt: 'Select Type of User...'}, class: 'form-control' %>
   </div>
 
   <div class='actions'>

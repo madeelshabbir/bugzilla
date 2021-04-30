@@ -1,5 +1,12 @@
-<h2>Projects</h2>
+<%= render 'shared/flash_errors' %>
+
+<div class='d-flex-space-between'>
+  <h2>Projects</h2>
+  <%= show_if_manager create_link_button new_project_path %>
+</div>
+
 <%= paginate @projects %>
+
 <div class='line'></div>
-<%= render 'create_project' %>
-<%= render partial: 'project', collection: @projects, as: :project if !@projects.nil? %>
+
+<%= render partial: 'project', collection: @projects, as: :project %>

@@ -1,18 +1,27 @@
 class ProjectUsersController < ApplicationController
-  rescue_from NoMethodError do |exception|
-    redirect_to project_path(@project.id), alert: exception.message
-  end
+  rescue_from NoMethodError, with: :redirection_path
 
   def add_user
-    if ProjectUser.create(user_id: params[:member], project_id: params[:project_id])
+    params[:ids].each do |id|
+      break unless authorize ProjectUser.create(user_id: id, project_id: params[:project_id])
+    end
+
+    redirect_to project_path(params[:project_id])
+  end
+
+  def remove_user
+    @project_user = authorize ProjectUser.find_by(user_id: params[:id], project_id: params[:project_id])
+
+    if @project_user.destroy
       redirect_to project_path(params[:project_id])
     else
       render 'projects/show'
     end
   end
 
-  def remove_user
-    @project_user = ProjectUser.find_by(user_id: params[:id], project_id: params[:project_id])
-    redirect_to project_path(params[:project_id]) if @project_user.destroy
+  private
+
+  def redirection_path
+    redirect_to project_path(params[:project_id]), alert: 'Page does not exist!'
   end
 end

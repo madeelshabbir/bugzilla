@@ -1,6 +1,11 @@
 <%= render 'report_bug', local: {id: @project.id} %>
+
+<%= render 'shared/flash_errors' %>
+
+<%= created_or_assigned_projects(@project, @own_bugs) %>
+
 <h2>Bugs</h2>
-<%= paginate @bugs %>
 <div class='line'></div>
+<%= render partial: 'bug', collection: @bugs, as: :bug %>
+
 <%= paginate @bugs %>
-<%= render partial: 'bug', collection: @bugs, as: :bug if !@bugs.empty? %>

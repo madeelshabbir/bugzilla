@@ -4,7 +4,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def show?
-    !(@user.developer? && @record.project_users.find_by(user_id: @user.id).nil?)
+    !@user.developer? || @record.users.exists?(@user.id)
   end
 
   def new?
@@ -31,7 +31,17 @@ class ProjectPolicy < ApplicationPolicy
     edit?
   end
 
-  def remove_user?(row_user)
+  def remove_user_view?(row_user)
     !row_user.manager? && creator?
+  end
+
+  class Scope < Scope
+    def resolve
+      if @user.developer?
+        @user.projects
+      else
+        scope.all
+      end
+    end
   end
 end

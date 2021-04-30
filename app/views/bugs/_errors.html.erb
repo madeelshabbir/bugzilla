@@ -1,7 +1,0 @@
-<% if !locals[:bug].nil? %>
-  <ul>
-  <% locals[:bug].errors.full_messages.each do |msg| %>
-    <li class='error-message'><%= msg %></li>
-  <% end %>
-  </ul>
-<% end %>

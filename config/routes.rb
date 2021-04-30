@@ -10,5 +10,5 @@ Rails.application.routes.draw do
     resources :bugs
   end
 
-  get '*path' => redirect('/')
+  # get '*path' => redirect('/')
 end

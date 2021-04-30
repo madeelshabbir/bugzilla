@@ -1,29 +1,23 @@
-<div class='d-flex-space-between mb-2'>
-  <%= render 'create_project' %>
-  <%= render 'bugs/report_bug', local: {id: @project.id} %>
+<div class='row'>
+  <div class='col-md-9 col-xs-12'>
+    <div class='d-flex-space-between mb-2'>
+      <%= render 'bugs/report_bug', local: {id: @project.id} %>
 
-  <div>
-    <h2><%= @project.title %></h2>
-    <p>(<%= link_to 'See Bugs', project_bugs_path(@project.id) %>)</p>
-    <p><strong>Created by: </strong><%= @project.creator.name %></p>
-    <span><%= link_to 'Edit', edit_project_path(@project.id), class: 'mr-1' if policy(@project).creator? %></span>
-    <span><%= link_to 'Delete', project_path(@project.id), method: :delete, data: { confirm: 'Are you sure?' } if policy(@project).creator? %></span>
+      <div>
+        <h2><%= @project.title %></h2>
+        <p>(<%= link_to 'See Bugs', project_bugs_path(@project.id) %>)</p>
+        <p><strong>Created by: </strong><%= @project.creator.name %></p>
+        <span><%= creator_policy_check @project, (link_to 'Edit', edit_project_path(@project.id), class: 'mr-1') %></span>
+        <span><%= creator_policy_check @project, (link_to 'Delete', project_path(@project.id), method: :delete, data: { confirm: 'Are you sure?' }) %></span>
+      </div>
+    </div>
+
+    <%= render partial: 'project_users/index', locals: { users: @users, project: @project } %>
+
+    <%= paginate @users %>
   </div>
 
-  <div class="mt-3">
-    <% if policy(@project).creator? %>
-      <%= form_with url: project_add_user_path(@project.id), class: 'rem-form' do |f| %>
-        <div class='form-group'>
-          <%= f.label :add_member %>
-          <%= f.select :member, options_for_select(User.available(@project.users.ids).map { |user| [user.name, user.id] }), {prompt: 'Select Developer/QA...'}, class: 'form-control' %>
-        </div>
-
-        <div class='form-group'>
-          <%= f.submit :Add, class: 'btn', id: 'add-member' %>
-        </div>
-      <% end %>
-    <% end %>
+  <div class='col-md-3 col-xs-12'>
+    <%= creator_policy_check @project, add_user_form(@project.id) %>
   </div>
 </div>
-<%= paginate @users %>
-<%= render 'project_users/index', locals: {users: @users, project: @project } %>

@@ -1,6 +1,6 @@
 class BugPolicy < ApplicationPolicy
   def index?
-    !(@user.developer? && @record.project.project_users.find_by(user_id: @user.id).nil?)
+    !@user.developer? || @record.project.users.exists?(@user.id)
   end
 
   def show?
@@ -16,14 +16,22 @@ class BugPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.developer? && (@record.assignee_id == @user.id || @record.creator.qa?)
+    @user.developer? && (@record.assignee.nil? || @record.assignee_id == @user.id)
   end
 
   def destroy?
     new?
   end
 
-  def add_user?
-    @user.developer? && (@record.assignee_id == @user.id || @record.assignee.nil?)
+  class Scope < Scope
+    def resolve
+      if @user.developer?
+        scope.assigned_by(@user.id)
+      elsif @user.qa?
+        scope.created_by(@user.id)
+      else
+        scope.none
+      end
+    end
   end
 end

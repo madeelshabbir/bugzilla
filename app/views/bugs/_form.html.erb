@@ -1,5 +1,5 @@
 <%= form_with model: [@project, @bug], local: true do |f| %>
-  <%= render 'errors', locals: {bug: @bug} %>
+  <%= render partial: 'shared/error_messages', locals: { resource: @bug } %>
 
   <div class='form-group'>
     <%= f.label :title %>
@@ -23,7 +23,7 @@
 
   <div class='form-group'>
     <%= f.label :type %>
-    <%= f.select :bug_type, options_for_select(Bug.bug_types.map { |key, value| [key.humanize, key] }), {prompt: 'Select Type of Bug...'}, class: 'form-control' %>
+    <%= f.select :bug_type, options_for_select(Bug::BUG_TYPE_MAP), {prompt: 'Select Type of Bug...'}, class: 'form-control' %>
   </div>
 
   <div>
