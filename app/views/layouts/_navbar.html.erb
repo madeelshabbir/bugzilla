@@ -1,7 +1,10 @@
 <nav class='navbar navbar-inverse'>
   <div class='container-fluid'>
     <div class='navbar-header'>
-      <%= link_to 'Bugzilla', root_path, class: 'navbar-brand' %>
+      <%= link_to root_path, class: 'navbar-brand' do %>
+        <i class="fa fa-bug"></i>
+        <span>Buzilla</span>
+      <% end %>
       <%= show_if_manager link_to 'Create Project', new_project_path, class: 'nav-link' %>
 
       <%= yield :report_bug %>
@@ -16,9 +19,9 @@
     <div class='collapse navbar-collapse' id='myNavbar'>
       <ul class='nav navbar-nav navbar-right'>
           <li><%= show_unless_signed_in nav_link_with_method_and_icon 'Signup' , new_user_registration_path, :get, 'user' %></li>
-          <li><%= show_unless_signed_in nav_link_with_method_and_icon 'Login' , new_user_session_path, :get, 'log-in' %></li>
+          <li><%= show_unless_signed_in nav_link_with_method_and_icon 'Login' , new_user_session_path, :get, 'sign-in' %></li>
           <li><a><%= current_user&.name %></a></li>
-          <li><%= show_if_signed_in nav_link_with_method_and_icon 'Logout' , destroy_user_session_path, :delete, 'log-out' %></li>
+          <li><%= show_if_signed_in nav_link_with_method_and_icon 'Logout' , destroy_user_session_path, :delete, 'sign-out' %></li>
         </ul>
     </div>
   </div>
