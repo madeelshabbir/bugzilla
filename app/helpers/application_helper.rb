@@ -1,6 +1,9 @@
 module ApplicationHelper
   def nav_link_with_method_and_icon(text, path, method, icon_class)
-    link_to text, path, method: method, class: "glyphicon glyphicon-#{icon_class}"
+    link_to path, method: method do
+      concat content_tag :i, '', class: "fa fa-#{icon_class} mr-1"
+      concat content_tag :span, text
+    end
   end
 
   def show_if_signed_in(content)

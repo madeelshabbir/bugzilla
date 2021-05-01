@@ -68,6 +68,6 @@ Buzilla is a Bug Tracking System. It has three user roles (Developer, Manager an
 
 * Step 4: Setup database and perform migrations.
 
-* Step 5: Run 'rails db:seed'.
+* Step 5: Run 'rails db:seed'. (Optional)
 
 * Step 6: Run project using 'rails s' or 'rails server'.

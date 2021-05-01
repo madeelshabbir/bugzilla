@@ -16,6 +16,11 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+@import 'font-awesome';
+
+body{
+  max-width: 1500px;
+}
 
 .navbar {
   border-radius: 0;
@@ -91,9 +96,12 @@ h2 {
   }
 }
 
-form {
-  width: 50%;
+@media screen and (min-width: 992px) {
+  form {
+    width: 50%;
+  }
 }
+
 
 .rem-form {
   width: 100%;
@@ -105,3 +113,6 @@ form {
   align-items: center;
 }
 
+.fa {
+  margin-right: 3px;
+}

@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  after_create :send_email
+
   enum user_type: { developer: 0, manager: 1, qa: 2 }
 
   USER_TYPE_MAP = {
@@ -21,4 +23,8 @@ class User < ApplicationRecord
 
   scope :unavailable, ->(project_id) { joins(:project_users).where('project_users.project_id = ?', project_id) }
   scope :available, ->(project_id) { where.not(user_type: 1, id: unavailable(project_id)) }
+
+  def send_email
+    UserMailer.with(user: self).signed_up.deliver_later
+  end
 end

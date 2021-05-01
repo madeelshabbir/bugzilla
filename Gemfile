@@ -85,3 +85,5 @@ gem 'activestorage-cloudinary-service'
 gem 'figaro'
 
 gem 'active_storage_validations'
+
+gem 'font-awesome-rails'
