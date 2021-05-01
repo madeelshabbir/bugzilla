@@ -10,5 +10,5 @@ Rails.application.routes.draw do
     resources :bugs
   end
 
-  # get '*path' => redirect('/')
+  get ':not_active_storage', to: redirect('/'), constraints: { not_active_storage: /(?!rails\/active_storage\/blobs).*/ }
 end
