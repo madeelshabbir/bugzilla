@@ -1,0 +1,4 @@
+<% content_for :bug_nav_links do %>
+  <%= link_to 'View Bugs', project_bugs_path(id), class: 'nav-link mr-3' %>
+  <%= show_if_qa link_to 'Report Bug', new_project_bug_path(id), class: 'nav-link' %>
+<% end %>

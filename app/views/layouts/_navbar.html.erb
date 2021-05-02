@@ -5,9 +5,9 @@
         <i class="fa fa-bug"></i>
         <span>Buzilla</span>
       <% end %>
-      <%= show_if_manager link_to 'Create Project', new_project_path, class: 'nav-link' %>
+      <%= show_if_manager link_to 'Create Project', new_project_path, class: 'nav-link mr-3' %>
 
-      <%= yield :report_bug %>
+      <%= yield :bug_nav_links %>
 
       <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='#myNavbar'>
         <span class='icon-bar'></span>

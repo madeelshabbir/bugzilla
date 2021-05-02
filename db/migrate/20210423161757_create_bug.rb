@@ -6,9 +6,9 @@ class CreateBug < ActiveRecord::Migration[5.2]
       t.date :deadline, null: false
       t.integer :status, null: false, default: 0
       t.integer :bug_type, null: false
-      t.references :creator, index: true, foreign_key: { to_table: :users }
+      t.references :creator, index: true, foreign_key: { to_table: :users, on_delete: :cascade }
       t.references :assignee, index: true, foreign_key: { to_table: :users }
-      t.references :project, index: true, foreign_key: true
+      t.references :project, index: true, foreign_key: { on_delete: :cascade }
       t.index %i[title project_id], unique: true
 
       t.timestamps

@@ -1,4 +1,4 @@
-<%= render 'report_bug', local: {id: @project.id} %>
+<%= render partial: 'bug_nav_links', locals: {id: @project.id} %>
 
 <div class='row'>
   <div class='col-md-6 col-xs-12'>
@@ -6,7 +6,7 @@
     <p><%= show_if_qa link_to 'Delete', project_bug_path(@project.id, @bug.id), method: :delete, data: { confirm: 'Are you sure?' } %></p>
     <p><strong>Reported by: </strong><%= @bug.creator.name %></p>
     <p><strong>Assigned to: </strong><%= @bug.assignee&.name %></p>
-    <p><strong>Status: </strong><%= @bug.status.humanize %></p>
+    <p><strong>Status: </strong><%= fresh_to_new_or_humanize @bug.status %></p>
     <p><strong>Deadline: </strong><%= @bug.deadline %></p>
     <p><%= @bug.description %></p>
   </div>
