@@ -37,7 +37,7 @@
 
   <div class='field form-group'>
     <%= f.label :user_type %>
-    <%= f.select :user_type, options_for_select(User::USER_TYPE_MAP), {prompt: 'Select Type of User...'}, class: 'form-control' %>
+    <%= f.select :user_type, options_for_select(User::USER_TYPE_MAP, resource.user_type), {}, class: 'form-control' %>
   </div>
 
   <div class='actions'>

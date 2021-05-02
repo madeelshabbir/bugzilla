@@ -18,11 +18,11 @@
 
     <div class='collapse navbar-collapse' id='myNavbar'>
       <ul class='nav navbar-nav navbar-right'>
-          <li><%= show_unless_signed_in nav_link_with_method_and_icon 'Signup' , new_user_registration_path, :get, 'user' %></li>
-          <li><%= show_unless_signed_in nav_link_with_method_and_icon 'Login' , new_user_session_path, :get, 'sign-in' %></li>
-          <li><a><%= current_user&.name %></a></li>
-          <li><%= show_if_signed_in nav_link_with_method_and_icon 'Logout' , destroy_user_session_path, :delete, 'sign-out' %></li>
-        </ul>
+        <li><%= show_unless_signed_in nav_link_with_method_and_icon 'Signup' , new_user_registration_path, :get, 'user' %></li>
+        <li><%= show_unless_signed_in nav_link_with_method_and_icon 'Login' , new_user_session_path, :get, 'sign-in' %></li>
+        <li><%= show_if_signed_in nav_link_with_method_and_icon  current_user&.name , edit_user_registration_path, :get, 'user' %></li>
+        <li><%= show_if_signed_in nav_link_with_method_and_icon 'Logout' , destroy_user_session_path, :delete, 'sign-out' %></li>
+      </ul>
     </div>
   </div>
 </nav>

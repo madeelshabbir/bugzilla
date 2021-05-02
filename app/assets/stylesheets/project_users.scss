@@ -8,3 +8,17 @@
     overflow-x: auto;
   }
 }
+
+.user_check_box {
+  padding: 10px 10px 10px 0;
+
+  .cb_user_name {
+    font-size: large;
+  }
+
+  .cb_user_prop {
+    font-size: small;
+    color: gray;
+    margin: 0;
+  }
+}
