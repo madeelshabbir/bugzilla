@@ -32,6 +32,8 @@ class User < ApplicationRecord
   scope :unavailable, ->(project_id) { joins(:project_users).where('project_users.project_id = ?', project_id) }
   scope :available, ->(project_id) { where.not(user_type: 1, id: unavailable(project_id)) }
 
+  private
+
   def send_email
     UserMailer.with(user: self).signed_up.deliver_later
   end
