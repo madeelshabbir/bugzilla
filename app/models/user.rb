@@ -10,6 +10,8 @@ class User < ApplicationRecord
       message: ' should contain at least an alphabet, a digit and a special character'
     }
 
+  validates :name, :user_type, presence: { message: ' is missing' }
+
   after_create :send_email
 
   enum user_type: { developer: 0, manager: 1, qa: 2 }

@@ -33,4 +33,12 @@ module BugsHelper
 
     image_tag url_for(object.screenshot), class: 'media-object img-thumbnail', width: '100%'
   end
+
+  def fresh_to_new_or_humanize(value)
+    if value == 'fresh'
+      'New'
+    else
+      value.humanize
+    end
+  end
 end

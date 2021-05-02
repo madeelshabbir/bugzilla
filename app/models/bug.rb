@@ -1,5 +1,5 @@
 class Bug < ApplicationRecord
-  has_one_attached :screenshot, dependent: :destroy
+  has_one_attached :screenshot, dependent: :detach
   before_validation :set_users, on: :create
 
   belongs_to :project

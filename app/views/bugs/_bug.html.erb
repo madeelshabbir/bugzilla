@@ -7,7 +7,7 @@
 
           <p><%= bug.deadline %></p>
         </div>
-        <p><%= bug.status.humanize %></p>
+        <p><%= fresh_to_new_or_humanize bug.status %></p>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 <div class='row'>
   <div class='col-md-9 col-xs-12'>
     <div class='d-flex-space-between mb-2'>
-      <%= render 'bugs/report_bug', local: {id: @project.id} %>
+      <%= render partial: 'bugs/bug_nav_links', locals: { id: @project.id } %>
 
       <div>
         <h2><%= @project.title %></h2>
