@@ -4,6 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :password, unless: proc { |user| user.password.blank? }, format:
+    {
+      with: /(?=.*[a-zA-Z])(?=.*[0-9])(?=.*\W)/,
+      message: ' should contain at least an alphabet, a digit and a special character'
+    }
+
   after_create :send_email
 
   enum user_type: { developer: 0, manager: 1, qa: 2 }

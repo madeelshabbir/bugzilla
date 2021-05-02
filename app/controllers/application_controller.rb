@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-  around_action :set_current_user
+  before_action :set_current_user
 
   rescue_from Pundit::NotAuthorizedError, Pundit::NotDefinedError, NoMethodError, with: :redirection_path
 
@@ -14,8 +14,5 @@ class ApplicationController < ActionController::Base
 
   def set_current_user
     Current.user = current_user
-    yield
-  ensure
-    Current.user = nil
   end
 end
