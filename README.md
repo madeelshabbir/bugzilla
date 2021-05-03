@@ -46,18 +46,6 @@ Buzilla is a Bug Tracking System. It has three user roles (Developer, Manager an
 
 * can't add/remove any user from Projects.
 
-
-**Other Features**
-
-* User login, signup and logout.
-
-* Forget Password via email.
-
-* When Project creater delete, Project will also delete.
-
-* When Bug creater delete, Bug will also delete.
-
-
 **How to setup the app**
 
 * Step 1: Clone the repository using 'git clone https://github.com/adeeldevsinc/Bugzilla.git'.
