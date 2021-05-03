@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
@@ -17,4 +19,3 @@ module Bugzilla
     # the framework and any gems in your application.
   end
 end
-

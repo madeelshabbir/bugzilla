@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def nav_link_with_method_and_icon(text, path, method, icon_class)
     link_to path, method: method do
-      concat content_tag :i, '', class: "fa fa-#{icon_class} mr-1"
-      concat content_tag :span, text
+      concat tag.i('', class: "fa fa-#{icon_class} mr-1")
+      concat tag.span(text)
     end
   end
 
@@ -24,7 +26,7 @@ module ApplicationHelper
 
   def create_link_button(path)
     link_to path, class: 'move-to-bottom' do
-      content_tag :button, '+', class: 'btn square-btn'
+      tag.button('+', class: 'btn square-btn')
     end
   end
 end

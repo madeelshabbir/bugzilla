@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class ProjectPolicy < ApplicationPolicy
   def index?
     true
   end
 
   def show?
-    !@user.developer? || @record.users.exists?(@user.id)
+    @user.manager? || @user.qa? || @record.users.exists?(@user.id)
   end
 
   def new?

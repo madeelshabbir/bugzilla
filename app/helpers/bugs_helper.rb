@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module BugsHelper
   def created_or_assigned_projects(parent, objects)
     return if current_user.manager? || objects.empty?
 
-    concat (content_tag :div, class: 'd-flex-space-between' do
-      concat content_tag :h2, "Your #{ current_user.qa? ? 'Created' : 'Assigned'} Bugs"
-      concat show_if_qa create_link_button new_project_bug_path(@project.id)
+    concat(tag.div(class: 'd-flex-space-between') do
+      concat tag.h2("Your #{current_user.qa? ? 'Created' : 'Assigned'} Bugs")
+      concat show_if_qa create_link_button new_project_bug_path(parent.id)
     end)
-    concat content_tag :div, '', class: 'line'
+    concat tag.div('', class: 'line')
     render partial: 'bug', collection: objects, as: :bug
   end
 
@@ -14,7 +16,7 @@ module BugsHelper
     return unless policy(object).update?
 
     form_with model: [parent, object], class: 'mt-3' do |f|
-      concat (content_tag :div ,class: 'form-group' do
+      concat(tag.div(class: 'form-group') do
         concat f.label :change_status
         if object.bug_type == 'feature'
           concat f.select :status, options_for_select(Bug::FEATURE_STATUS_MAP, object.status), {}, class: 'form-control'
@@ -23,7 +25,7 @@ module BugsHelper
         end
       end)
 
-      concat (content_tag :div, class: 'form-group' do
+      concat(tag.div(class: 'form-group') do
         f.submit :Change, class: 'btn'
       end)
     end
@@ -45,6 +47,7 @@ module BugsHelper
 
   def assignee_name_or_none(assignee)
     return 'N/A' if assignee.nil?
+
     assignee.name
   end
 end

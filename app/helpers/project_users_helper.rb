@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ProjectUsersHelper
   def show_if_creator_not_manager_row(object, user, content)
     content if policy(object).remove_user_view?(user)

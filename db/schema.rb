@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_171801) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_projects_on_creator_id"
+    t.index ["title"], name: "index_projects_on_title", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -86,10 +87,10 @@ ActiveRecord::Schema.define(version: 2021_04_23_171801) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "bugs", "projects"
+  add_foreign_key "bugs", "projects", on_delete: :cascade
   add_foreign_key "bugs", "users", column: "assignee_id"
-  add_foreign_key "bugs", "users", column: "creator_id"
-  add_foreign_key "project_users", "projects"
-  add_foreign_key "project_users", "users"
-  add_foreign_key "projects", "users", column: "creator_id"
+  add_foreign_key "bugs", "users", column: "creator_id", on_delete: :cascade
+  add_foreign_key "project_users", "projects", on_delete: :cascade
+  add_foreign_key "project_users", "users", on_delete: :cascade
+  add_foreign_key "projects", "users", column: "creator_id", on_delete: :cascade
 end

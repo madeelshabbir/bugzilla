@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class ProjectUserPolicy < ApplicationPolicy
-  def add_user?
+  def create?
     @record.project.creator_id == @user.id
   end
 
-  def remove_user?
-    add_user?
+  def destroy?
+    create?
   end
 end
