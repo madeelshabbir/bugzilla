@@ -31,7 +31,7 @@ class Bug < ApplicationRecord
   validates :screenshot, content_type: { in: %w[image/png image/gif], message: ' must be .png or .gif' }
   validate :future_time
 
-  scope :assigned_by, ->(assignee_id) { where(assignee_id: assignee_id) }
+  scope :assigned_to, ->(assignee_id) { where(assignee_id: assignee_id) }
   scope :created_by, ->(creator_id) { where(creator_id: creator_id) }
 
   private
