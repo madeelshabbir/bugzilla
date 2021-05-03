@@ -1,5 +1,5 @@
-<%= form_with model: [@project, @bug], local: true do |f| %>
-  <%= render partial: 'shared/error_messages', locals: { resource: @bug } %>
+<%= form_with model: [project, bug], local: true do |f| %>
+  <%= render partial: 'shared/error_messages', locals: { resource: bug } %>
 
   <div class='form-group'>
     <%= f.label :title %>
