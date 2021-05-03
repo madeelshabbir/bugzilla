@@ -42,4 +42,9 @@ module BugsHelper
       value.humanize
     end
   end
+
+  def assignee_name_or_none(assignee)
+    return 'N/A' if assignee.nil?
+    assignee.name
+  end
 end
