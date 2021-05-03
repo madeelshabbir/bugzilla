@@ -26,7 +26,7 @@ class BugPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if @user.developer?
-        scope.assigned_by(@user.id)
+        scope.assigned_to(@user.id)
       elsif @user.qa?
         scope.created_by(@user.id)
       else

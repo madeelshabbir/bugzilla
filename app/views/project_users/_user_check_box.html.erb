@@ -1,8 +1,8 @@
-<div class='d-flex-space-between-vertical-center form-group user_check_box'>
+<div class='d-flex-space-between-vertical-center form-group user-check-box'>
   <div>
-    <p class='cb_user_name'><%= user.name %></p>
-    <p class='cb_user_prop'>Role: <%= user.user_type %></p>
-    <p class='cb_user_prop'>(<%= user.email %>)</p>
+    <p class='cb-user-name'><%= user.name %></p>
+    <p class='cb-user-prop'>Role: <%= user.user_type %></p>
+    <p class='cb-user-prop'>(<%= user.email %>)</p>
   </div>
 
   <%= form.check_box :ids, {multiple: true}, user.id, nil %>
