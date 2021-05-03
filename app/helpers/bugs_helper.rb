@@ -1,6 +1,7 @@
 module BugsHelper
   def created_or_assigned_projects(parent, objects)
     return if current_user.manager? || objects.empty?
+
     concat (content_tag :div, class: 'd-flex-space-between' do
       concat content_tag :h2, "Your #{ current_user.qa? ? 'Created' : 'Assigned'} Bugs"
       concat show_if_qa create_link_button new_project_bug_path(@project.id)
