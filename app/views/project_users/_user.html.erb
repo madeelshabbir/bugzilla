@@ -2,5 +2,5 @@
   <td><%= user.name %></td>
   <td><%= user.email %></td>
   <td><%= user.user_type.humanize %></td>
-  <td><%= show_if_creator_not_manager_row project, user, (link_to 'Delete', project_remove_user_path(params[:id], user.id), method: :delete, data: { confirm: 'Are you sure?' }) %></td>
+  <td><%= show_if_creator_not_manager_row project, user, (link_to 'Delete', project_project_user_path(params[:id], user.id), method: :delete, data: { confirm: 'Are you sure?' }) %></td>
 </tr>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BugsController < ApplicationController
   before_action :set_project
   before_action :set_bug, only: %i[update show destroy]

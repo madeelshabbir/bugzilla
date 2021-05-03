@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserMailer < ApplicationMailer
   before_action :set_user
   default from: ENV['smtp_user_name']

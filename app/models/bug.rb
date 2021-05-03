@@ -1,14 +1,6 @@
+# frozen_string_literal: true
+
 class Bug < ApplicationRecord
-  has_one_attached :screenshot, dependent: :detach
-  before_validation :set_users, on: :create
-
-  belongs_to :project
-  belongs_to :creator, class_name: :User
-  belongs_to :assignee, class_name: :User, inverse_of: :assigned_bugs
-
-  enum bug_type: { feature: 0, bug: 1 }
-  enum status: { fresh: 0, started: 1, completed: 2, resolved: 3 }
-
   BUG_TYPE_MAP = {
     Feature: :feature,
     Bug: :bug
@@ -25,6 +17,16 @@ class Bug < ApplicationRecord
     Started: :started,
     Resolved: :resolved
   }.freeze
+
+  enum bug_type: { feature: 0, bug: 1 }
+  enum status: { fresh: 0, started: 1, completed: 2, resolved: 3 }
+
+  has_one_attached :screenshot, dependent: :detach
+  before_validation :set_users, on: :create
+
+  belongs_to :project
+  belongs_to :creator, class_name: :User
+  belongs_to :assignee, class_name: :User, inverse_of: :assigned_bugs
 
   validates :title, :deadline, :bug_type, :status, presence: { message: ' is missing' }
   validates :title, uniqueness: { scope: :project_id }

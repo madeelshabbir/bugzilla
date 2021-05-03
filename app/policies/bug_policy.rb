@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class BugPolicy < ApplicationPolicy
   def index?
-    !@user.developer? || @record.project.users.exists?(@user.id)
+    @user.manager? || @user.qa? || @record.project.users.exists?(@user.id)
   end
 
   def show?
