@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module BugsHelper
-  def created_or_assigned_projects(parent, objects)
+  def created_or_assigned_projects(parent, objects) # rubocop:disable Metrics/AbcSize
     return if current_user.manager? || objects.empty?
 
     concat(tag.div(class: 'd-flex-space-between') do
@@ -12,10 +12,10 @@ module BugsHelper
     render partial: 'bug', collection: objects, as: :bug
   end
 
-  def assign_bug_form(parent, object)
+  def assign_bug_form(parent, object) # rubocop:disable Metrics/AbcSize
     return unless policy(object).update?
 
-    form_with model: [parent, object], class: 'mt-3' do |f|
+    form_with model: [parent, object], class: 'mt-3', validate: true do |f|
       concat(tag.div(class: 'form-group') do
         concat f.label :change_status
         if object.bug_type == 'feature'

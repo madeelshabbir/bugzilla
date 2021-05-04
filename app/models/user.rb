@@ -26,7 +26,7 @@ class User < ApplicationRecord
       message: ' should contain at least an alphabet, a digit and a special character'
     }
 
-  validates :name, :user_type, presence: { message: ' is missing' }
+  validates :name, :user_type, presence: true
 
   scope :unavailable, ->(project_id) { joins(:project_users).where('project_users.project_id = ?', project_id) }
   scope :available, ->(project_id) { where.not(user_type: 1, id: unavailable(project_id)) }

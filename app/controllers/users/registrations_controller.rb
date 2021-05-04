@@ -11,7 +11,7 @@ module Users
     # end
 
     # POST /resource
-    def create
+    def create # rubocop:disable Lint/UselessMethodDefinition
       super
     end
 
@@ -21,7 +21,7 @@ module Users
     # end
 
     # PUT /resource
-    def update
+    def update # rubocop:disable Lint/UselessMethodDefinition
       super
     end
 
