@@ -77,5 +77,3 @@ Buzilla is a Bug Tracking System. It has three user roles (Developer, Manager an
   smtp_domain - representing SMTP Domain
   smtp_user_name - representing SMTP Username
   smtp_password - representing SMTP Password
-
-
