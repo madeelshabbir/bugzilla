@@ -89,3 +89,5 @@ gem 'figaro'
 gem 'active_storage_validations'
 
 gem 'font-awesome-rails'
+
+gem 'client_side_validations'

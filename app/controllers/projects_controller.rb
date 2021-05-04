@@ -30,7 +30,7 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    # Do nothing
+    # Do Nothing
   end
 
   def update

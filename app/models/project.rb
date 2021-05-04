@@ -7,7 +7,7 @@ class Project < ApplicationRecord
 
   belongs_to :creator, class_name: :User, inverse_of: :created_projects
 
-  validates :title, presence: { message: ' is missing' }, uniqueness: { case_sensitive: false }
+  validates :title, presence: true, uniqueness: { case_sensitive: false }
 
   before_create :set_user
 

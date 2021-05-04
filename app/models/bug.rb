@@ -28,7 +28,7 @@ class Bug < ApplicationRecord
   belongs_to :creator, class_name: :User
   belongs_to :assignee, class_name: :User, inverse_of: :assigned_bugs
 
-  validates :title, :deadline, :bug_type, :status, presence: { message: ' is missing' }
+  validates :title, :deadline, :bug_type, :status, presence: true
   validates :title, uniqueness: { scope: :project_id }
   validates :screenshot, content_type: { in: %w[image/png image/gif], message: ' must be .png or .gif' }
   validate :future_time

@@ -2,7 +2,6 @@
 
 class UserMailer < ApplicationMailer
   before_action :set_user
-  default from: ENV['smtp_user_name']
 
   def signed_up
     email_with_name = %("#{@user.name}" <#{@user.email}>)

@@ -6,7 +6,7 @@ module ProjectsHelper
   end
 
   def add_user_form(object_id, users)
-    form_with url: project_project_users_path(object_id), class: 'rem-form' do |f|
+    form_with url: project_project_users_path(object_id), class: 'rem-form', validate: true do |f|
       if users.count.positive?
         concat(
           (tag.div(class: 'form-group') do
