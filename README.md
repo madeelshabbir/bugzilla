@@ -64,16 +64,16 @@ Buzilla is a Bug Tracking System. It has three user roles (Developer, Manager an
 
 **Environment Variables**
 
-* For Postgres Credentials:
-  postgres_user_name - representing Postgres Username
-  postgres_password - representing Postgres Password
+*For Postgres Credentials:*
+* postgres_user_name - representing Postgres Username
+* postgres_password - representing Postgres Password
 
-* For Cloudinary Credentials:
-  cloudinary_cloud_name - representing Cloudinary Cloud Name
-  cloudinary_api_key: - representing Cloudinary API Key
-  cloudinary_api_secret - representing Cloudinary API Secret
+*For Cloudinary Credentials:*
+* cloudinary_cloud_name - representing Cloudinary Cloud Name
+* cloudinary_api_key: - representing Cloudinary API Key
+* cloudinary_api_secret - representing Cloudinary API Secret
 
-* For SMTP Settings:
-  smtp_domain - representing SMTP Domain
-  smtp_user_name - representing SMTP Username
-  smtp_password - representing SMTP Password
+*For SMTP Settings:*
+* smtp_domain - representing SMTP Domain
+* smtp_user_name - representing SMTP Username
+* smtp_password - representing SMTP Password
