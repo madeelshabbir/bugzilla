@@ -5,6 +5,7 @@
         <div>
           <h3 class='media-heading'><%= bug.title %></h3>
 
+          <p><%= bug.bug_type.humanize %></p>
           <p><%= bug.deadline %></p>
         </div>
         <p><%= fresh_to_new_or_humanize bug.status %></p>

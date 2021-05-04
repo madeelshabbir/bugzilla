@@ -6,6 +6,7 @@
     <p><%= show_if_qa link_to 'Delete', project_bug_path(@project.id, @bug.id), method: :delete, data: { confirm: 'Are you sure?' } %></p>
     <p><strong>Reported by: </strong><%= @bug.creator.name %></p>
     <p><strong>Assigned to: </strong><%= assignee_name_or_none @bug.assignee %></p>
+    <p><strong>Type: </strong><%= @bug.bug_type.humanize %></p>
     <p><strong>Status: </strong><%= fresh_to_new_or_humanize @bug.status %></p>
     <p><strong>Deadline: </strong><%= @bug.deadline %></p>
     <p><%= @bug.description %></p>
