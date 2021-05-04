@@ -50,12 +50,32 @@ Buzilla is a Bug Tracking System. It has three user roles (Developer, Manager an
 
 * Step 1: Clone the repository using 'git clone https://github.com/adeeldevsinc/Bugzilla.git'.
 
-* Step 2: Install Ruby 2.6 and Rails 5.2
+* Step 2: Install Ruby 2.6, Rails 5.2 and Postgres version 0.18 to <2.0.
 
 * Step 3: Run bundle in project's root directory.
 
-* Step 4: Setup database and perform migrations.
+* Step 4: Create application.yml in config directory and write environment variables in it.
 
-* Step 5: Run 'rails db:seed'. (Optional)
+* Step 5: Setup database and perform migrations.
 
-* Step 6: Run project using 'rails s' or 'rails server'.
+* Step 6: Run 'rails db:seed'. (Optional)
+
+* Step 7: Run project using 'rails s' or 'rails server'.
+
+**Environment Variables**
+
+* For Postgres Credentials:
+  postgres_user_name - representing Postgres Username
+  postgres_password - representing Postgres Password
+
+* For Cloudinary Credentials:
+  cloudinary_cloud_name - representing Cloudinary Cloud Name
+  cloudinary_api_key: - representing Cloudinary API Key
+  cloudinary_api_secret - representing Cloudinary API Secret
+
+* For SMTP Settings:
+  smtp_domain - representing SMTP Domain
+  smtp_user_name - representing SMTP Username
+  smtp_password - representing SMTP Password
+
+
