@@ -1,3 +1,3 @@
-<p>@bug.title (@bug.type.humanize) is reported by @bug.creator</p>
+<p><%= "#{@bug.title} (#{@bug.bug_type.humanize}) is reported by #{@bug.creator.name}" %></p>
 
-<p><%= link_to "See #{@bug.type.humanize}", project_bug_url(@project.id, @bug.id) %></p>
+<p><%= link_to "See #{@bug.bug_type.humanize}", project_bug_url(@project.id, @bug.id) %></p>

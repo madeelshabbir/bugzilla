@@ -22,7 +22,6 @@ class Bug < ApplicationRecord
   enum status: { fresh: 0, started: 1, completed: 2, resolved: 3 }
 
   has_one_attached :screenshot, dependent: :detach
-  before_validation :set_users, on: :create
 
   belongs_to :project
   belongs_to :creator, class_name: :User
@@ -36,11 +35,19 @@ class Bug < ApplicationRecord
   scope :assigned_to, ->(assignee_id) { where(assignee_id: assignee_id) }
   scope :created_by, ->(creator_id) { where(creator_id: creator_id) }
 
+  before_validation :set_users, on: :create
+
+  after_create :send_email
+
   private
 
   def set_users
     self.creator = Current.user
     self.assignee = User.new
+  end
+
+  def send_email
+    BugMailer.with(bug: self).bug_reported.deliver_later
   end
 
   def future_time
